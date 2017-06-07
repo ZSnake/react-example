@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import style from './App.css';
 import SongList from './components/SongList.js';
 import SearchBar from './components/SearchBar.js';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchBy: 'album'
+    };
+    this.setCurrentSearchType = this.setCurrentSearchType.bind(this);
+    this.getSearchBy =this.getSearchBy.bind(this);
+  };
+  setCurrentSearchType(newSearchBy){
+    this.setState({searchBy: newSearchBy})
+  }
+  getSearchBy(){
+    return this.state.searchBy;
+  }
   render() {
     return (
       <div className="App">
@@ -18,17 +30,17 @@ class App extends Component {
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
                 </button>
-                <div className="navbar-brand" href="#"><i className="fa fa-rebel" aria-hidden="true"></i></div>
+                <div className="navbar-brand" ><i className="fa fa-rebel" aria-hidden="true"></i></div>
               </div>
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul className="nav navbar-nav">
                   <li className="dropdown active">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter <span className="caret"></span></a>
+                    <a  className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{`Filter (${this.state.searchBy})`}<span className="caret"></span></a>
                     <ul className="dropdown-menu">
-                      <li><a href="#">Album</a></li>
-                      <li><a href="#">Artist</a></li>
-                      <li><a href="#">Playlist</a></li>
-                      <li><a href="#">Track</a></li>
+                      <li><a onClick={() => this.setCurrentSearchType('album')}>Album</a></li>
+                      <li><a  onClick={() => this.setCurrentSearchType('artist')}>Artist</a></li>
+                      <li><a  onClick={() => this.setCurrentSearchType('playlist')}>Playlist</a></li>
+                      <li><a onClick={() => this.setCurrentSearchType('track')}>Track</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -39,8 +51,8 @@ class App extends Component {
             </div>
           </div>
         </nav>
-        <SearchBar></SearchBar>
-        <SongList></SongList>
+        <SearchBar getSearchType={this.getSearchBy}></SearchBar>
+        <SongList ></SongList>
       </div>
     );
   }

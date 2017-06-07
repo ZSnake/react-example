@@ -82,3 +82,12 @@ p.error {
   outline: none;
   box-shadow: none;
 }
+
+.thumb{
+  height: 64px;
+  width: 64px;
+}
+
+.disableClick{
+    pointer-events: none;
+}
